@@ -1,31 +1,9 @@
 import React, { useState } from "react";
 import DropTarget from "./DropTarget";
+import Component from "./Component";
+import GroupComponent from "./GroupComponent";
 
-function Component({ children }) {
-  console.log(children);
-  const handleDragStart = (event) => {
-    event.dataTransfer.setData("text/plain", children);
-    //onDragStart();
-  };
 
-  return (
-    <div
-      draggable
-      onDragStart={handleDragStart}
-      style={{ border: "1px solid black", padding: "10px", margin: "10px" }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function Group({ children }) {
-  return (
-    <div style={{ border: "1px solid black", padding: "10px", margin: "10px" }}>
-      {children}
-    </div>
-  );
-}
 
 function App() {
   const [components, setComponents] = useState([]);
@@ -37,12 +15,12 @@ function App() {
   const handleDrop = (droppedData) => {
     const newComponent = <Component>{droppedData}</Component>;
     const newGroup = (
-      <Group>
+      <GroupComponent>
         <DropTarget onDrop={handleDrop}>
           <p>Drop components here</p>
         </DropTarget>
         {newComponent}
-      </Group>
+      </GroupComponent>
     );
     setComponents([...components, newGroup]);
   };
@@ -55,7 +33,7 @@ function App() {
       <DropTarget onDrop={handleDrop}>
         <p>Drop components here</p>
       </DropTarget>
-      <Component onDragStart={handleDragStart}>Component 111</Component>
+      <Component onDragStart={handleDragStart}>Component 1</Component>
       <Component onDragStart={handleDragStart}>Component 2</Component>
       <Component onDragStart={handleDragStart}>Component 3</Component>
     </div>
