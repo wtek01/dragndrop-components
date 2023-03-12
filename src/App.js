@@ -1,41 +1,16 @@
-import React, { useState } from "react";
-import DropTarget from "./DropTarget";
-import Component from "./Component";
-import GroupComponent from "./GroupComponent";
+import React, { useState } from 'react';
+import DragAndDropv2 from './dragndrop-v2';
+import DragAndDropv1 from './dragndrop-v1';
 
-
-const  App = () => {
-  const [components, setComponents] = useState([]);
-
-  const handleDrop = (event) => {
-    event.preventDefault();
-    const droppedData = event.dataTransfer.getData("text/plain");
-    const newComponent = <Component>{droppedData}</Component>;
-    const newGroup = (
-      <GroupComponent>
-        <DropTarget onDrop={handleDrop}>
-          <p>Drop components here</p>
-        </DropTarget>
-        {newComponent}
-      </GroupComponent>
-    );
-    setComponents([...components, newGroup]);
-  };
+const App = () => {
+ 
 
   return (
-    <div onDrop={handleDrop}>
-      {components.map((component, index) => (
-        <div key={index}>{component}</div>
-      ))}
-  
-      <DropTarget>
-          <Component >Component 1</Component>
-      </DropTarget>
-      <DropTarget >
-          <Component >Component 2</Component>
-      </DropTarget>
+    <div>
+     <DragAndDropv2/>
+     {/*<DragAndDropv1/>*/}
     </div>
   );
-}
+};
 
 export default App;
