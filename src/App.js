@@ -4,11 +4,12 @@ import Component from "./Component";
 import GroupComponent from "./GroupComponent";
 
 
-
-function App() {
+const  App = () => {
   const [components, setComponents] = useState([]);
 
-  const handleDrop = (droppedData) => {
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const droppedData = event.dataTransfer.getData("text/plain");
     const newComponent = <Component>{droppedData}</Component>;
     const newGroup = (
       <GroupComponent>
@@ -22,15 +23,17 @@ function App() {
   };
 
   return (
-    <div>
+    <div onDrop={handleDrop}>
       {components.map((component, index) => (
         <div key={index}>{component}</div>
       ))}
-      <DropTarget onDrop={handleDrop}>
-        <p>Drop components here</p>
+  
+      <DropTarget>
+          <Component >Component 1</Component>
       </DropTarget>
-      <Component >Component 1</Component>
-      <Component >Component 2</Component>
+      <DropTarget >
+          <Component >Component 2</Component>
+      </DropTarget>
     </div>
   );
 }
